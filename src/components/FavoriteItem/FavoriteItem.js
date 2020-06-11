@@ -13,6 +13,7 @@ const FavoriteItem = ( props ) => {
     const locations = useSelector(state => state.locations.locations);
     const currentLocation = locations.find(location => location.Key === props.locationKey);
     const currentWeather = useSelector(state => state.currentWeather.currentWeather).find(cur => cur.Key === currentLocation.Key);
+    const degreeType = useSelector(state => state.degree.degreeType);
 
     const setCurrentLocation = useCallback(key => dispatch(actions.setCurrentLocation(key)), [dispatch]);
 
@@ -25,7 +26,9 @@ const FavoriteItem = ( props ) => {
         "max-width" : '20rem'
     }
 
-    const currentTemp = currentWeather.Temperature?.Metric.Value + '\u2103';
+    const currentTemp = degreeType === 'fahrenheit' ?
+    ((currentWeather.Temperature?.Metric.Value * 1.8) + 32).toFixed(2) + '\u2109'
+    : currentWeather.Temperature?.Metric.Value.toFixed(2) + '\u2103';
 
     return (
         <div className={"card text-white bg-dark m-4"} style={cardStyle} onClick={() => clickHandler(props.locationKey)}>

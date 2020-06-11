@@ -25,3 +25,6 @@ export const CLEAR_LOCATIONS = 'CLEAR_LOCATIONS';
 //Modal
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
+
+//Degree
+export const SET_DEGREE_TYPE = 'SET_DEGREE_TYPE';

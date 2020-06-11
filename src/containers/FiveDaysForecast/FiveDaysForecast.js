@@ -16,6 +16,7 @@ const FiveDaysForecast = () => {
 
     const locationError = useSelector(state => state.locations.error);
     const forecastError = useSelector(state => state.dailyWeather.error);
+    const degreeType = useSelector(state => state.degree.degreeType);
     
     const onGetDailyForcast = useCallback(() => dispatch(actions.get5DaysWeather(currentLocation.Key)), [currentLocation.Key, dispatch]);
     const onOpenModal = useCallback(() => dispatch(actions.openModal()), [dispatch]);
@@ -33,16 +34,16 @@ const FiveDaysForecast = () => {
     if (dailyForecast) {
         content = dailyForecast.map(daily => {
             return (
-               <div className={classes.col} >
+               <div className={classes.col} key={daily.EpochDate} >
                     <DailyForecast
-                    key={daily.EpochDate}
-                    date={formatDate(daily.Date, 'short-with-day')}
-                    dayTemperature={daily.Temperature.Maximum.Value}
-                    dayImageNumber={daily.Day.Icon}
-                    dayStatus={daily.Day.IconPhrase}
-                    nightTemperature={daily.Temperature.Minimum.Value}
-                    nightImageNumber={daily.Night.Icon}
-                    nightStatus={daily.Night.IconPhrase}
+                        date={formatDate(daily.Date, 'short-with-day')}
+                        dayTemperature={daily.Temperature.Maximum.Value}
+                        dayImageNumber={daily.Day.Icon}
+                        dayStatus={daily.Day.IconPhrase}
+                        nightTemperature={daily.Temperature.Minimum.Value}
+                        nightImageNumber={daily.Night.Icon}
+                        nightStatus={daily.Night.IconPhrase}
+                        degreeType={degreeType}
                     />
                </div>
             );

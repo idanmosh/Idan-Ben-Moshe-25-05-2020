@@ -18,6 +18,7 @@ const WeatherNow = () => {
 
     const locationError = useSelector(state => state.locations.error);
     const weatherError = useSelector(state => state.currentWeather.error);
+    const degreeType = useSelector(state => state.degree.degreeType);
 
     const onGetCurrentWeather = useCallback(() => dispatch(actions.getCurrentWeather(currentLocation.Key)), [currentLocation.Key, dispatch]);
     const onOpenModal = useCallback(() => dispatch(actions.openModal()), [dispatch]);
@@ -30,11 +31,13 @@ const WeatherNow = () => {
         }
     }, [locationError, onGetCurrentWeather, onOpenModal, weatherError]);
 
-    let content = locationError || weatherError ? <h2 style={{"text-align": 'center'}}>Can't Load Content...</h2> : <Spinner/>;
+    let content = locationError || weatherError ? <h2 style={{"textAlign": 'center'}}>Can't Load Content...</h2> : <Spinner/>;
 
     if (currentWeather) {
-    const temperature = currentWeather.Temperature?.Metric.Value;
-    content = (
+        const temperature = degreeType === 'fahrenheit' ?
+        ((currentWeather.Temperature?.Metric.Value * 1.8) + 32).toFixed(2) + '\u2109'
+        : currentWeather.Temperature?.Metric.Value.toFixed(2) + '\u2103';
+        content = (
             <Fragment>
                     <div className={"card bg-dark mx-auto"}>
                         <div className={"card-body"}>
@@ -42,12 +45,12 @@ const WeatherNow = () => {
                             <FavoriteBtn favorite={currentLocation.isFavorite} locationKey={currentLocation.Key}/>
                             <h3>{formatDate(currentWeather.LocalObservationDateTime)}</h3>
                             <h3 className={classes.WeatherText}>{currentWeather.WeatherText}</h3>
-                            <h3 className={classes.WeatherText}>{temperature + '\u2103'}</h3>
+                            <h3 className={classes.WeatherText}>{temperature}</h3>
                             <WeatherImage imageIcon={currentWeather.WeatherIcon}/>
                         </div>
                     </div>
             </Fragment>
-        )
+        );
     }
     
 

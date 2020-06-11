@@ -5,8 +5,17 @@ import classes from './DailyForecast.module.css';
 
 const DailyForecast = ( props ) => {
 
-    const dayTemperature = props.dayTemperature + '\u2103';
-    const nightTemperature = props.nightTemperature + '\u2103';
+    let dayTemperature;
+    let nightTemperature;
+    if(props.degreeType === 'fahrenheit') {
+        dayTemperature = ((props.dayTemperature * 1.8) + 32).toFixed(2) + '\u2109';
+        nightTemperature = ((props.nightTemperature * 1.8) + 32).toFixed(2) + '\u2109';
+    }
+    else {
+        dayTemperature = props.dayTemperature.toFixed(2) + '\u2103';
+        nightTemperature = props.nightTemperature.toFixed(2) + '\u2103';
+    }
+    
     
     return (
         <div className={"card bg-dark my-4 py-2"}>

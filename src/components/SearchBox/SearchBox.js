@@ -13,7 +13,7 @@ const SearchBox = () => {
 
     let locations = useSelector(state => state.locations.autoComplete);
 
-    const requestLocationsForAC = useCallback(search=> dispatch(actions.getLocationsForAutoComplete(search)), [dispatch]);
+    const requestLocationsForAC = useCallback(search => dispatch(actions.getLocationsForAutoComplete(search)), [dispatch]);
 
     useEffect(() => {
         const timer = setTimeout(() => {

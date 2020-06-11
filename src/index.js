@@ -12,12 +12,14 @@ import locationsReducer from './store/reducers/locations';
 import currentWeatherReducer from './store/reducers/currentWeather';
 import generalReducer  from './store/reducers/general';
 import dailyWeatherReducer from './store/reducers/dailyWeather';
+import degreeReducer from './store/reducers/degree';
 
 const rootReducer  = combineReducers({
   locations: locationsReducer,
   currentWeather: currentWeatherReducer,
   general: generalReducer,
-  dailyWeather: dailyWeatherReducer
+  dailyWeather: dailyWeatherReducer,
+  degree: degreeReducer
 });
 
 const logger = store => {
