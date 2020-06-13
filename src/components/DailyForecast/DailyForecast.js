@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { celsiusToFahrenheit } from '../../components/celsiusToFahrenheit';
 import WeatherImage from '../../UI/WeatherImage/WeatherImage';
 import classes from './DailyForecast.module.css';
 
@@ -8,8 +9,8 @@ const DailyForecast = ( props ) => {
     let dayTemperature;
     let nightTemperature;
     if(props.degreeType === 'fahrenheit') {
-        dayTemperature = ((props.dayTemperature * 1.8) + 32).toFixed(2) + '\u2109';
-        nightTemperature = ((props.nightTemperature * 1.8) + 32).toFixed(2) + '\u2109';
+        dayTemperature = celsiusToFahrenheit(props.dayTemperature) + '\u2109';
+        nightTemperature = celsiusToFahrenheit(props.nightTemperature) + '\u2109';
     }
     else {
         dayTemperature = props.dayTemperature.toFixed(2) + '\u2103';

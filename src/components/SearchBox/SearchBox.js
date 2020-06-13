@@ -2,11 +2,13 @@ import React, { memo, useRef, useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import AutoComplete from '../../UI/AutoComplete/AutoComplete';
+import $ from 'jquery';
 
 
 const SearchBox = () => {
 
     const [searchInput, setSearchInput] = useState('');
+    const [close, setClose] = useState(false);
     const inputRef = useRef();
 
     const dispatch = useDispatch();
@@ -21,8 +23,18 @@ const SearchBox = () => {
                 requestLocationsForAC(searchInput);
         }, 500);
 
+        $(document).ready(function () {
+            $(document).click(function (event) {
+                var click = $(event.target);
+                if (!click.hasClass("form-control")) 
+                    setClose(true);
+                else
+                    setClose(false);
+            });
+        });
+
         return () => clearTimeout(timer);
-    }, [requestLocationsForAC, searchInput])
+    }, [requestLocationsForAC, searchInput, close])
 
     const onChangedTextHandler = event => {
         setSearchInput(event.target.value);
@@ -40,8 +52,8 @@ const SearchBox = () => {
                     <input type={"text"} ref={inputRef} value={searchInput} className={"form-control"} autoComplete={"off"}
                     placeholder={"Search Location"} name={"Search Location"} onChange={onChangedTextHandler}/>
                 </div>
-                <div className={"input-group"}>
-                {locations.length > 0 ? <AutoComplete locations={locations} click={onLocationClickedHandler}/> : null}
+                <div className={"input-group"} id={"autocomplete"}>
+                {locations.length > 0  && !close ? <AutoComplete locations={locations} click={onLocationClickedHandler}/> : null}
                 </div>
             </form>
         </div>

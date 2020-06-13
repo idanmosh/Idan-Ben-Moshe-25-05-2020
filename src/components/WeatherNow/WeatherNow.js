@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { celsiusToFahrenheit } from '../../components/celsiusToFahrenheit';
 import classes from './WeatherNow.module.css';
 import * as actions from '../../store/actions/index';
 import { formatDate } from '../../store/utility';
@@ -35,7 +36,7 @@ const WeatherNow = () => {
 
     if (currentWeather) {
         const temperature = degreeType === 'fahrenheit' ?
-        ((currentWeather.Temperature?.Metric.Value * 1.8) + 32).toFixed(2) + '\u2109'
+        celsiusToFahrenheit(currentWeather.Temperature?.Metric.Value)  + '\u2109'
         : currentWeather.Temperature?.Metric.Value.toFixed(2) + '\u2103';
         content = (
             <Fragment>
