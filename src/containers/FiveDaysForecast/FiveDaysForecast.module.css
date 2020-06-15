@@ -1,6 +1,24 @@
 
 .col {
-    width: 92.75%;
+    width: 90.5%;
+}
+
+@media only screen and (min-width: 321px) {
+  .col {
+      width: 91.5%;
+  }
+}
+
+@media only screen and (min-width: 361px) {
+  .col {
+      width: 92%;
+  }
+}
+
+@media only screen and (min-width: 410px) {
+  .col {
+      width: 92.75%;
+  }
 }
 
 @media only screen and (min-width: 576px) {

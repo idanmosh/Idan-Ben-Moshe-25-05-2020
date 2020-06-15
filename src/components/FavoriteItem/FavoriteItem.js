@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import classes from './FavoriteItem.module.css'
+import styled from 'styled-components';
 import * as actions from '../../store/actions/index';
 import FavoriteBtn from '../../UI/FavoriteBtn/FavoriteBtn';
 
@@ -22,6 +22,10 @@ const FavoriteItem = ( props ) => {
         history.push('/');
     }
 
+    const H1 = styled.h1`
+        font-size: larger;
+    `;
+
     const cardStyle = {
         "max-width" : '20rem'
     }
@@ -33,7 +37,7 @@ const FavoriteItem = ( props ) => {
     return (
         <div className={"card text-white bg-dark m-4"} style={cardStyle} onClick={() => clickHandler(props.locationKey)}>
             <div className={"mx-auto mt-2"}>
-                <h1 className={"card-title"}>{props.location}</h1>
+                <H1 className={"card-title"}>{props.location}</H1>
             </div>
             <div className={"mx-auto mt-2"}>
                 <h3 className={"card-title"}>{currentWeather.WeatherText}</h3>

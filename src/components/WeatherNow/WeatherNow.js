@@ -39,6 +39,7 @@ const WeatherNow = () => {
         celsiusToFahrenheit(currentWeather.Temperature?.Metric.Value)  + '\u2109'
         : currentWeather.Temperature?.Metric.Value.toFixed(2) + '\u2103';
         content = (
+            <Fragment>
                     <div className={"card bg-dark mx-auto"}>
                         <div className={"card-body"}>
                             <h1 className={"card-title"}>{currentLocation.LocalizedName}, {currentLocation.Country.LocalizedName}</h1>
@@ -49,6 +50,7 @@ const WeatherNow = () => {
                             <WeatherImage imageIcon={currentWeather.WeatherIcon}/>
                         </div>
                     </div>
+            </Fragment>
         );
     }
     

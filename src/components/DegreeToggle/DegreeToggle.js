@@ -19,6 +19,7 @@ const DegreeToggle = () => {
     }
 
     return (
+        <Fragment>
             <div className={"row justify-content-center mx-auto my-3"}>
                 <div className={"form-check form-check-inline"}>
                     <input
@@ -31,7 +32,7 @@ const DegreeToggle = () => {
                         onChange={updateForecastDegree}
                     />
                     <label className={"form-check-label"} htmlFor={"celsius"} >Celsius</label>
-                    </div>
+                </div>
                 <div className={"form-check form-check-inline"}>
                     <input
                         className={"form-check-input"}
@@ -45,6 +46,7 @@ const DegreeToggle = () => {
                     <label className={"form-check-label"} htmlFor={"farenheit"} >Farenheit</label>
                 </div>
             </div>
+        </Fragment>
     );
 }
 
