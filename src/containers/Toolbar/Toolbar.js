@@ -1,25 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import $ from 'jquery';
 
-const Toolbar = ( props ) => {
+const Toolbar = () => {
+
+    const btnRef = useRef();
 
     useEffect(() => {
-        $(document).ready(function () {
-            $(document).click(function (event) {
-                var click = $(event.target);
-                var _open = $(".navbar-collapse").hasClass("show");
-                if (_open === true && !click.hasClass("navbar-toggler")) {
-                    $(".navbar-toggler").click();
-                }
-            });
-        });
-    }, [])
+
+        const handleClick = (event) => {
+            if((btnRef !== event.target) && (!btnRef.current.className.includes("collapsed"))) {
+                document.getElementById("toggleBtn").click();
+            }
+        }
+
+        document.addEventListener("mousedown", handleClick);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClick);
+        };
+    }, [btnRef])
 
     return(
         <nav className={"navbar navbar-expand-lg navbar-dark bg-dark"} data-toggle={"collapse"} data-target={".navbar-collapse.show"} >
             <NavLink className={"navbar-brand"} to={"/"}>Herolo Weather Task</NavLink>
-            <button className={"navbar-toggler"} type={"button"} data-toggle={"collapse"} data-target={"#navbarNav"} 
+            <button className={"navbar-toggler collapsed"} id={"toggleBtn"} ref={btnRef} type={"button"} data-toggle={"collapse"} data-target={"#navbarNav"} 
                 aria-controls={"navbarNav"} aria-expanded={false} aria-label={"Toggle navigation"}>
                 <span className={"navbar-toggler-icon"}></span>
             </button>

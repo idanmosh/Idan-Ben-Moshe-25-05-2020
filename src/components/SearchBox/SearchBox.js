@@ -2,7 +2,6 @@ import React, { memo, useRef, useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import AutoComplete from '../../UI/AutoComplete/AutoComplete';
-import $ from 'jquery';
 
 
 const SearchBox = () => {
@@ -23,18 +22,23 @@ const SearchBox = () => {
                 requestLocationsForAC(searchInput);
         }, 500);
 
-        $(document).ready(function () {
-            $(document).click(function (event) {
-                var click = $(event.target);
-                if (!click.hasClass("form-control")) 
-                    setClose(true);
-                else
-                    setClose(false);
-            });
-        });
-
         return () => clearTimeout(timer);
-    }, [requestLocationsForAC, searchInput, close])
+    }, [requestLocationsForAC, searchInput]);
+
+    useEffect(() => {
+        const handleClick = (event) => {
+            if(!event.target.className.includes("form-control")) 
+                setClose(true);
+            else
+                setClose(false);
+        }
+
+        document.addEventListener("mousedown", handleClick);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClick);
+        };
+    }, [close])
 
     const onChangedTextHandler = event => {
         setSearchInput(event.target.value);
